@@ -5,7 +5,10 @@ public class TestGravBody {
     
     @Test
     public void testGetXCoord() {
-	GrabBody gb = null; // TODO: Replace null w/ call to GravBody cons
+	int[] rgb1 = {0, 0, 0};
+	
+	GravBody gb = new GravBody(1986.1203, 0.0, -100.0, 0.0, 10.0, rgb1,
+				   50.0);
 
 	// It is NEVER a good idea to check if floating point numbers are
         // ==. To represent floating point numbers using binary, the
