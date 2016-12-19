@@ -10,18 +10,16 @@ public class GravBody implements Body{
     double y;
     double xVel;
     double yVel;
-    double radius;
     int[] rgb;
     double mass;
 
     //Constructor
-    public GravBody(double xc, double yc, double xv, double yv, double r,
+    public GravBody(double xc, double yc, double xv, double yv,
 		    int[] color, double m){
 	x = xc;
 	y = yc;
 	xVel = xv;
 	yVel = yv;
-	radius = r;
 	rgb = color;
 	mass = m;
     }
@@ -44,7 +42,7 @@ public class GravBody implements Body{
     }
 
     public double getRadius(){
-	return radius;
+	return 0.0;
     }
 
     public int[] getRGB(){
@@ -63,7 +61,6 @@ public class GravBody implements Body{
 	
     }
     
-    // TODO: Implment any additional methods for testing (i.e. methods
-    // not listed on the Body interface). Look at TestGravBody for ideas
-    // of helper methods you might need.
+    //Helper methods
+    //
 }

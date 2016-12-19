@@ -1,15 +1,20 @@
+import java.util.*;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class TestGravBody {
-    
+    int[] rgb0 = {0, 0, 0};
+    GravBody gb0 = new GravBody(1986.1203, 2032.0983, -132.2345, 214.9004,
+				rgb0, 90321348.7326);
+    int[] rgb1 = {255, 255, 255};
+    GravBody gb1 = new GravBody(5325.6743, 4012.3236, 1203.8753, 7462.4217,
+				rgb1, 984212524.8921);
+    int[] rgb2 = {10, 20, 30};
+    GravBody gb2 = new GravBody(4437.7241, 8982.3511, -1329.2145,
+				-1248.3326, rgb2, 50.0);
+
     @Test
     public void testGetXCoord() {
-	int[] rgb1 = {0, 0, 0};
-	
-	GravBody gb = new GravBody(1986.1203, 0.0, -100.0, 0.0, 10.0, rgb1,
-				   50.0);
-
 	// It is NEVER a good idea to check if floating point numbers are
         // ==. To represent floating point numbers using binary, the
 	// computer must ROUND when it does math. 
@@ -21,30 +26,59 @@ public class TestGravBody {
         // be to basically count as equal. That's this number below:
 	double delta = 0.00001;
 
-	assertEquals(1986.1203, gb.getXCoord(), delta);
+	assertEquals(1986.1203, gb0.getXCoord(), delta);
+	assertEquals(5325.6743, gb1.getXCoord(), delta);
+	assertEquals(4437.7241, gb2.getXCoord(), delta);
     }
 
 
     @Test
     public void testGetYCoord() {
-	GravBody gb = null; // TODO: Replace null with call to GravBody
-	                    // constructor that sets the y-value to you like
-
 	double delta = 0.00001;
-
-	// TODO: assert that gb.getYCoord() returns the y-value you picked in
-	// the constructor. This is exactly like testGetXCoord() above.
+	
+	assertEquals(2032.0983, gb0.getYCoord(), delta);
+	assertEquals(4012.3236, gb1.getYCoord(), delta);
+	assertEquals(8982.3511, gb2.getYCoord(), delta);
     }
 
-    // TODO: Add a test for getXVel
+    @Test
+    public void testGetXVel() {
+	double delta = 0.00001;
+	
+	assertEquals(-132.2345, gb0.getXVel(), delta);
+	assertEquals(1203.8753, gb1.getXVel(), delta);
+	assertEquals(-1329.2145, gb2.getXVel(), delta);
+    }
 
-    // TODO: Add a test for getYVel
+    @Test
+    public void testGetYVel() {
+	double delta = 0.00001;
+	
+	assertEquals(214.9004, gb0.getYVel(), delta);
+	assertEquals(7462.4217, gb1.getYVel(), delta);
+	assertEquals(-1248.3326, gb2.getYVel(), delta);
+    }
 
-    // TODO: Add a test for getRadius
+    @Test
+    public void testGetRadius() {
+	double delta = 0.00001;
+    }
 
-    // TODO: Add a test for getRGB
+    @Test
+    public void testGetRGB() {
+	assertEquals(true, Arrays.equals(rgb0, gb0.getRGB()));
+	assertEquals(true, Arrays.equals(rgb1, gb1.getRGB()));
+	assertEquals(true, Arrays.equals(rgb2, gb2.getRGB()));
+    }
 
-    // TODO: Add a test for getMass
+    @Test
+    public void testGetMass() {
+	double delta = 0.00001;
+	
+	assertEquals(90321348.7326, gb0.getMass(), delta);
+	assertEquals(984212524.8921, gb1.getMass(), delta);
+	assertEquals(50.0, gb2.getMass(), delta);
+    }
 
     @Test
     public void testAddForceFrom(){
