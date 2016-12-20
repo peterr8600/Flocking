@@ -23,8 +23,44 @@ public class GravUniverseReader extends UniverseReader{
      * [integer green-value using 0-255 RGB color scale]
      * [integer blue-value using 0-255 RGB color scale]\n
      */ 
+    int numBodies;
+
     public GravUniverseReader(String fileName){
 	In input = new In(fileName);
+	double rad;
+
+	numBodies = input.readInt();
+	rad = input.readDouble();
+
+	Body[] bodies = new Body[numBodies];
+
+	double tempX;
+	double tempY;
+	double tempXVel;
+	double tempYVel;
+	double tempMass;
+	int tempR;
+	int tempG;
+	int tempB;
+	int[] tempRGB = new int[3];
+
+	for(int i = 0; i < numBodies; i++){
+	    tempX = input.readDouble();
+	    tempY = input.readDouble();
+	    tempXVel = input.readDouble();
+	    tempYVel = input.readDouble();
+	    tempMass = input.readDouble();
+
+	    tempR = input.readInt();
+	    tempG = input.readInt();
+	    tempB = input.readInt();
+
+	    tempRGB[0] = tempR;
+	    tempRGB[1] = tempG;
+	    tempRGB[2] = tempB;
+
+	    bodies[i] = new GravBody(tempX, tempY, tempXVel, tempYVel, tempRGB, tempMass);
+	}
 
 	// TODO: Read in data from file according to format
 	

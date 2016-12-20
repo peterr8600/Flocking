@@ -3,18 +3,17 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class TestGravBody {
-    int[] rgb0 = {0, 0, 0};
-    GravBody gb0 = new GravBody(1986.1203, 2032.0983, -132.2345, 214.9004,
-				rgb0, 90321348.7326);
-    int[] rgb1 = {255, 255, 255};
-    GravBody gb1 = new GravBody(5325.6743, 4012.3236, 1203.8753, 7462.4217,
-				rgb1, 984212524.8921);
-    int[] rgb2 = {10, 20, 30};
-    GravBody gb2 = new GravBody(4437.7241, 8982.3511, -1329.2145,
-				-1248.3326, rgb2, 50.0);
-
     @Test
     public void testGetXCoord() {
+	int[] rgb0 = {0, 0, 0};
+	GravBody gb0 = new GravBody(1986.1203, 2032.0983, -132.2345, 214.9004,
+				    rgb0, 90321348.7326);
+	int[] rgb1 = {255, 255, 255};
+	GravBody gb1 = new GravBody(5325.6743, 4012.3236, 1203.8753, 7462.4217,
+				    rgb1, 984212524.8921);
+	int[] rgb2 = {10, 20, 30};
+	GravBody gb2 = new GravBody(4437.7241, 8982.3511, -1329.2145,
+				    -1248.3326, rgb2, 50.0);
 	// It is NEVER a good idea to check if floating point numbers are
         // ==. To represent floating point numbers using binary, the
 	// computer must ROUND when it does math. 
@@ -34,6 +33,16 @@ public class TestGravBody {
 
     @Test
     public void testGetYCoord() {
+	int[] rgb0 = {0, 0, 0};
+	GravBody gb0 = new GravBody(1986.1203, 2032.0983, -132.2345, 214.9004,
+				    rgb0, 90321348.7326);
+	int[] rgb1 = {255, 255, 255};
+	GravBody gb1 = new GravBody(5325.6743, 4012.3236, 1203.8753, 7462.4217,
+				    rgb1, 984212524.8921);
+	int[] rgb2 = {10, 20, 30};
+	GravBody gb2 = new GravBody(4437.7241, 8982.3511, -1329.2145,
+				    -1248.3326, rgb2, 50.0);
+
 	double delta = 0.00001;
 	
 	assertEquals(2032.0983, gb0.getYCoord(), delta);
@@ -43,6 +52,16 @@ public class TestGravBody {
 
     @Test
     public void testGetXVel() {
+	int[] rgb0 = {0, 0, 0};
+	GravBody gb0 = new GravBody(1986.1203, 2032.0983, -132.2345, 214.9004,
+				    rgb0, 90321348.7326);
+	int[] rgb1 = {255, 255, 255};
+	GravBody gb1 = new GravBody(5325.6743, 4012.3236, 1203.8753, 7462.4217,
+				    rgb1, 984212524.8921);
+	int[] rgb2 = {10, 20, 30};
+	GravBody gb2 = new GravBody(4437.7241, 8982.3511, -1329.2145,
+				    -1248.3326, rgb2, 50.0);
+
 	double delta = 0.00001;
 	
 	assertEquals(-132.2345, gb0.getXVel(), delta);
@@ -52,6 +71,16 @@ public class TestGravBody {
 
     @Test
     public void testGetYVel() {
+	int[] rgb0 = {0, 0, 0};
+	GravBody gb0 = new GravBody(1986.1203, 2032.0983, -132.2345, 214.9004,
+				    rgb0, 90321348.7326);
+	int[] rgb1 = {255, 255, 255};
+	GravBody gb1 = new GravBody(5325.6743, 4012.3236, 1203.8753, 7462.4217,
+				    rgb1, 984212524.8921);
+	int[] rgb2 = {10, 20, 30};
+	GravBody gb2 = new GravBody(4437.7241, 8982.3511, -1329.2145,
+				    -1248.3326, rgb2, 50.0);
+
 	double delta = 0.00001;
 	
 	assertEquals(214.9004, gb0.getYVel(), delta);
@@ -61,11 +90,31 @@ public class TestGravBody {
 
     @Test
     public void testGetRadius() {
+	int[] rgb0 = {0, 0, 0};
+	GravBody gb0 = new GravBody(1986.1203, 2032.0983, -132.2345, 214.9004,
+				    rgb0, 90321348.7326);
+	int[] rgb1 = {255, 255, 255};
+	GravBody gb1 = new GravBody(5325.6743, 4012.3236, 1203.8753, 7462.4217,
+				    rgb1, 984212524.8921);
+	int[] rgb2 = {10, 20, 30};
+	GravBody gb2 = new GravBody(4437.7241, 8982.3511, -1329.2145,
+				    -1248.3326, rgb2, 50.0);
+
 	double delta = 0.00001;
     }
 
     @Test
     public void testGetRGB() {
+	int[] rgb0 = {0, 0, 0};
+	GravBody gb0 = new GravBody(1986.1203, 2032.0983, -132.2345, 214.9004,
+				    rgb0, 90321348.7326);
+	int[] rgb1 = {255, 255, 255};
+	GravBody gb1 = new GravBody(5325.6743, 4012.3236, 1203.8753, 7462.4217,
+				    rgb1, 984212524.8921);
+	int[] rgb2 = {10, 20, 30};
+	GravBody gb2 = new GravBody(4437.7241, 8982.3511, -1329.2145,
+				    -1248.3326, rgb2, 50.0);
+
 	assertEquals(true, Arrays.equals(rgb0, gb0.getRGB()));
 	assertEquals(true, Arrays.equals(rgb1, gb1.getRGB()));
 	assertEquals(true, Arrays.equals(rgb2, gb2.getRGB()));
@@ -73,6 +122,16 @@ public class TestGravBody {
 
     @Test
     public void testGetMass() {
+	int[] rgb0 = {0, 0, 0};
+	GravBody gb0 = new GravBody(1986.1203, 2032.0983, -132.2345, 214.9004,
+				    rgb0, 90321348.7326);
+	int[] rgb1 = {255, 255, 255};
+	GravBody gb1 = new GravBody(5325.6743, 4012.3236, 1203.8753, 7462.4217,
+				    rgb1, 984212524.8921);
+	int[] rgb2 = {10, 20, 30};
+	GravBody gb2 = new GravBody(4437.7241, 8982.3511, -1329.2145,
+				    -1248.3326, rgb2, 50.0);
+
 	double delta = 0.00001;
 	
 	assertEquals(90321348.7326, gb0.getMass(), delta);
