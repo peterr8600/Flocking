@@ -32,7 +32,7 @@ public class GravUniverseReader extends UniverseReader{
 	numBodies = input.readInt();
 	rad = input.readDouble();
 
-	Body[] bodies = new Body[numBodies];
+	Body[] b = new Body[numBodies];
 
 	double tempX;
 	double tempY;
@@ -59,9 +59,11 @@ public class GravUniverseReader extends UniverseReader{
 	    tempRGB[1] = tempG;
 	    tempRGB[2] = tempB;
 
-	    bodies[i] = new GravBody(tempX, tempY, tempXVel, tempYVel, tempRGB, tempMass);
+	    b[i] = new GravBody(tempX, tempY, tempXVel, tempYVel, tempRGB, tempMass);
 	}
 
+	universeRadius = rad;
+	bodies = b;
 	// TODO: Read in data from file according to format
 	
 	// TODO: Initialize parent class's protected instance variables
@@ -70,6 +72,8 @@ public class GravUniverseReader extends UniverseReader{
 
 
     public static void main(String[] args){
+	UniverseReader universe = new GravUniverseReader(planets.txt);
+	System.out.println(universe.getUniverseRadius);
 	// TODO: Write simple test of GravUniverseReader here by
 	// constructing a GravUniverseReader object and calling
 	// the two inherited methods on the GravUniverseReader object.

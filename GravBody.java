@@ -13,6 +13,8 @@ public class GravBody implements Body{
     int[] rgb;
     double mass;
 
+    double g = 6.67E-11;
+
     //Constructor
     public GravBody(double xc, double yc, double xv, double yv,
 		    int[] color, double m){
@@ -62,5 +64,8 @@ public class GravBody implements Body{
     }
     
     //Helper methods
-    //
+    public double  getDistanceTo(Body b){
+	double a = Math.abs(0);
+	return 0.0;
+    }
 }
