@@ -72,8 +72,13 @@ public class GravUniverseReader extends UniverseReader{
 
 
     public static void main(String[] args){
-	UniverseReader universe = new GravUniverseReader(planets.txt);
-	System.out.println(universe.getUniverseRadius);
+	UniverseReader universe = new GravUniverseReader("gravdata/planets.txt");
+	Body[] bodies = universe.getBodies();
+	System.out.println(bodies.length);
+	System.out.println(universe.getUniverseRadius());
+	for(int i = 0; i < bodies.length; i++){
+	    System.out.println(bodies[i]);
+	}
 	// TODO: Write simple test of GravUniverseReader here by
 	// constructing a GravUniverseReader object and calling
 	// the two inherited methods on the GravUniverseReader object.
