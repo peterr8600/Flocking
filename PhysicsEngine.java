@@ -58,8 +58,9 @@ public abstract class PhysicsEngine{
     private void setUpDrawingCanvas(){
         // TODO: Scale the drawing window so that x and y axes between 
         // −radius and +radius
-	
+	StdDraw.setCanvasSize(uniRad * 2.0, uniRad * 2.0);
 	// TODO: Enable double buffering for efficient animation
+	StdDraw.enableDoubleBuffering();
     }
 
     /**
@@ -67,12 +68,13 @@ public abstract class PhysicsEngine{
      */
     private void drawData(){
 	// TODO: Clear the canvas
-
+	StdDraw.clear();
 	// TODO: Draw each body on the offscreen canvas
-
+	
 	// TODO: Copy the offscreen canvs to the onscreen canvas
 
 	// TODO: Wait for a short amount of time
+	StdDraw.pause(10);
     }
     
     /**
