@@ -58,7 +58,8 @@ public abstract class PhysicsEngine{
     private void setUpDrawingCanvas(){
         // TODO: Scale the drawing window so that x and y axes between 
         // −radius and +radius
-	StdDraw.setCanvasSize(uniRad * 2.0, uniRad * 2.0);
+	StdDraw.setXscale(-uniRad, uniRad);
+	StdDraw.setYscale(-uniRad, uniRad);
 	// TODO: Enable double buffering for efficient animation
 	StdDraw.enableDoubleBuffering();
     }
