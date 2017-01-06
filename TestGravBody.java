@@ -3,6 +3,89 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class TestGravBody {
+    //Test Helpers
+    @Test
+    public void testGetDistanceTo(){
+	int[] rgb0 = {0, 0, 0};
+	GravBody gb0 = new GravBody(-4, -2, 0, 0, rgb0, 0);
+	GravBody gb1 = new GravBody(2, 2, 0, 0, rgb0, 0);
+	GravBody gb2a = new GravBody(0, 0, 0, 0, rgb0, 0);
+	GravBody gb2b = new GravBody(0, 0, 0, 0, rgb0, 0);
+	
+	double delta = 0.00001;
+	assertEquals(7.21110, gb0.getDistanceTo(gb1), delta);
+	assertEquals(2.82842, gb1.getDistanceTo(gb2a), delta);
+	assertEquals(0, gb2a.getDistanceTo(gb2b), delta);
+    }
+
+    @Test
+    public void testGetAngle(){
+	int[] rgb0 = {0, 0, 0};
+	GravBody gb0 = new GravBody(0, 0, 0, 0, rgb0, 0);
+	GravBody gb1 = new GravBody(3, 3, 0, 0, rgb0, 0);
+	GravBody gb2 = new GravBody(5, 2, 0, 0, rgb0, 0);
+
+	double delta = 0.00001;
+	assertEquals(Math.PI/4, gb0.getAngle(gb1), delta);
+	assertEquals(.38051, gb0.getAngle(gb2), delta);
+    }
+    
+    @Test
+    public void testGetForceFrom(){
+	int[] rgb0 = {0, 0, 0};
+	GravBody earth = new GravBody(0, 0, 0, 0, rgb0, 5.972E24);
+	GravBody moon = new GravBody(3.84E8, 0, 0, 0, rgb0, 7.348972E22);
+	GravBody gb0 = new GravBody(0, 0, 0, 0, rgb0, 10);
+	GravBody gb1 = new GravBody(10, 0, 0, 0, rgb0, 10);
+
+	double delta0 = 1E15;
+	assertEquals(1.98523E20, earth.getForceFrom(moon), delta0);
+	double delta1 = 1E-9;
+	assertEquals(6.67E-11, gb0.getForceFrom(gb1), delta0);
+    }
+
+    @Test
+    public void testGetXForce(){
+	int[] rgb0 = {0, 0, 0};
+	GravBody gb0 = new GravBody(0, 0, 0, 0, rgb0, 1000000);
+	GravBody gb1 = new GravBody(1000000, 2000000, 0, 0, rgb0, 1000000);
+	GravBody gb2 = new GravBody(3000000, 5000000, 0, 0, rgb0, 10000000);
+	
+	double delta = 0.00000000000001;
+	double c = gb0.getForceFrom(gb1);
+	//System.out.println("F: " + c);
+	double theta = gb0.getAngle(gb1);
+	//System.out.println("Theta: " + theta);
+	//System.out.println("xForce: " + c * Math.cos(theta));
+	assertEquals(5.965830E-12, gb0.getXForce(gb1), delta);
+
+	double c1 = gb0.getForceFrom(gb2);
+	//System.out.println("F: " + c1);
+	double theta1 = gb0.getAngle(gb2);
+	//System.out.println("Theta: " + theta1);
+	//System.out.println("xForce: " + c1 * Math.cos(theta1));
+	assertEquals(1.009320E-11, gb0.getXForce(gb2), delta);
+    }
+
+    @Test
+    public void testGetYForce(){
+	int[] rgb0 = {0, 0, 0};
+	GravBody gb0 = new GravBody(0, 0, 0, 0, rgb0, 1000000);
+	GravBody gb1 = new GravBody(1000000, 2000000, 0, 0, rgb0, 1000000);
+	GravBody gb2 = new GravBody(3000000, 5000000, 0, 0, rgb0, 10000000);
+	
+	double delta = 0.00000000000001;
+	
+	double c = gb0.getForceFrom(gb1);
+	//System.out.println("F: " + c);
+	double theta = gb0.getAngle(gb1);
+	//System.out.println("Theta: " + theta);
+	//System.out.println("yForce: " + c * Math.sin(theta));
+	assertEquals(1.193166E-11, gb0.getYForce(gb1), delta);
+
+	assertEquals(1.682199E-11, gb0.getYForce(gb2), delta);
+    }
+    
     @Test
     public void testGetXCoord() {
 	int[] rgb0 = {0, 0, 0};
@@ -88,6 +171,7 @@ public class TestGravBody {
 	assertEquals(-1248.3326, gb2.getYVel(), delta);
     }
 
+    //TO DO
     @Test
     public void testGetRadius() {
 	int[] rgb0 = {0, 0, 0};
