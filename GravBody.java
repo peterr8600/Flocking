@@ -135,15 +135,15 @@ public class GravBody implements Body{
     public double getXForce(Body body){
 	double c = this.getForceFrom(body);
 	double theta = this.getAngle(body);
-	double xForce = c * Math.cos(theta);
-	return xForce;
+	double xF = c * Math.cos(theta);
+	return xF;
     }
 
     public double getYForce(Body body){
 	double c = this.getForceFrom(body);
 	double theta = this.getAngle(body);
-	double yForce = c * Math.sin(theta);
-	return yForce;
+	double yF = c * Math.sin(theta);
+	return yF;
     }
 
     public String toString(){
