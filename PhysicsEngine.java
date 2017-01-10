@@ -71,9 +71,15 @@ public abstract class PhysicsEngine{
 	// TODO: Clear the canvas
 	StdDraw.clear();
 	// TODO: Draw each body on the offscreen canvas
-	
+	int[] colors;
+	for(int i = 0; i < bodies.length; i++){
+	    colors = bodies[i].getRGB();
+	    StdDraw.setPenColor(colors[0], colors[1], colors[2]);
+	    StdDraw.filledCircle(bodies[i].getXCoord(), bodies[i].getYCoord(),
+				 bodies[i].getRadius());
+	}
 	// TODO: Copy the offscreen canvs to the onscreen canvas
-
+	StdDraw.show();
 	// TODO: Wait for a short amount of time
 	StdDraw.pause(10);
     }
@@ -84,6 +90,9 @@ public abstract class PhysicsEngine{
      */
     private void computePositions(){
 	// TODO: Move each body
+	for(int i = 0; i < bodies.length; i++){
+	    bodies[i].move(dt);
+	}
     }
 
 

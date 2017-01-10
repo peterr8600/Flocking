@@ -226,27 +226,27 @@ public class TestGravBody {
     @Test
     public void testAddForceFrom(){
 	// HINT: The physics coursework/homework you did is helpful here
-
-	GravBody gbA = null; // TODO: Replace null w/ call to GravBody cons
-	GravBody gbB = null; // TODO: Replace null w/ a call to GravBody cons
-	GravBody gbC = null; // TODO: Replace null w/ a call to GravBody cons
-	              
+	int[] rgb0 = {255, 255, 255};
+	
+	GravBody gbSun = new GravBody(0, 0, 0, 0, rgb0, 1.989E30);
+	GravBody gbEarth = new GravBody(1.5E11, 0, 0, 3.0E4, rgb0, 5.972E24);
+	GravBody gbVenus = new GravBody(1E11, 0, 0, 3.5E4, rgb0,4.87E24);
 
 	// TODO: Assert that the x and y component of force on gbA are 0
 	// HINT: There's no method on the Body to get the forces--but gbA is
 	// a GravBody. So you can add methods to gravBody that isnt' on the
 	// interface to get the forces you need solely for testing purposes.
 
-	gbA.addForceFrom(gbB);
-	gbA.addForceFrom(gbC);
+	//gbA.addForceFrom(gbB);
+	//gbA.addForceFrom(gbC);
 
 	// TODO: Assert that the x and y components of force on gbA are correct
 
 
 	// TODO: Assert that the x and y components of force on gbB are 0
 
-	gbB.addForceFrom(gbA);
-	gbB.addForceFrom(gbC);
+	//gbB.addForceFrom(gbA);
+	//gbB.addForceFrom(gbC);
 
 	// TODO: Assert that x and y components of force on gbB are correct
 

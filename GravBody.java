@@ -13,7 +13,13 @@ public class GravBody implements Body{
     int[] rgb;
     double mass;
 
-    double G = 6.67E-11;
+    double xForce;
+    double yForce;
+
+    double xAccel;
+    double yAccel;
+
+    final double G = 6.67E-11;
 
     //Constructor
     public GravBody(double xc, double yc, double xv, double yv,
@@ -24,6 +30,9 @@ public class GravBody implements Body{
 	yVel = yv;
 	rgb = color;
 	mass = m;
+
+	xForce = 0;
+	yForce = 0;
     }
 
     //Methods
@@ -43,6 +52,14 @@ public class GravBody implements Body{
 	return yVel;
     }
 
+    public double getXForce(){
+	return xForce;
+    }
+
+    public double getYForce(){
+	return yForce;
+    }
+
     public double getRadius(){
 	return 0.0;
     }
@@ -56,11 +73,30 @@ public class GravBody implements Body{
     }
 
     public void addForceFrom(Body b){
-	
+	if(this.getXCoord() < b.getXCoord()){
+	    xForce += this.getXForce(b);
+	}
+	else{
+	    xForce -= this.getXForce(b);
+	}
+	if(this.getYCoord() < b.getYCoord()){
+	    yForce += this.getYForce();
+	}
+	else{
+	    yForce -= this.getYForce();
+	}
     }
 
     public void move(double tDelta){
-	
+	xAccel = xForce/mass;
+	yAccel = yForce/mass;
+	xVel = xVel + (xAccel * tDelta);
+	yVel = yVel + (yAccel * tDelta);
+	x += xVel * tDelta;
+	y += yVel * tDelta;
+
+	xForce = 0;
+	yForce = 0;
     }
     
     //Helper methods
