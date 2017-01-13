@@ -73,18 +73,24 @@ public class GravBody implements Body{
     }
 
     public void addForceFrom(Body b){
-	if(this.getXCoord() < b.getXCoord()){
+	/*if(this.getXCoord() < b.getXCoord()){
 	    xForce += this.getXForce(b);
+	    //System.out.println("x +");
 	}
 	else{
 	    xForce -= this.getXForce(b);
+	    //System.out.println("x -");
 	}
 	if(this.getYCoord() < b.getYCoord()){
 	    yForce += this.getYForce();
+	    //System.out.println("y +");
 	}
 	else{
 	    yForce -= this.getYForce();
-	}
+	    //System.out.println("y -");
+	    }*/
+	xForce += this.getXForce(b);
+	yForce += this.getYForce(b);
     }
 
     public void move(double tDelta){
@@ -101,11 +107,11 @@ public class GravBody implements Body{
     
     //Helper methods
     public double getXDiff(Body body){
-	return Math.abs(this.getXCoord() - body.getXCoord());
+	return body.getXCoord() - this.getXCoord();
     }
 
     public double getYDiff(Body body){
-	return Math.abs(this.getYCoord() - body.getYCoord());
+	return body.getYCoord() - this.getYCoord();
     }
     
     public double  getDistanceTo(Body body){
@@ -116,9 +122,11 @@ public class GravBody implements Body{
     }
     
     public double getAngle(Body body){
-	double a = Math.toRadians(this.getXDiff(body));
-	double c = Math.toRadians(this.getDistanceTo(body));
-	double theta = Math.acos(a/c);
+	double a = this.getXDiff(body);
+	double b = this.getYDiff(body);
+       	//double c = this.getDistanceTo(body);
+       	double theta = Math.atan2(b, a);
+       	//double theta = Math.acos(a/c);
 	return theta;
     }
     

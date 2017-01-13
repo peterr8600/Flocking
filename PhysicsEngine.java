@@ -75,8 +75,8 @@ public abstract class PhysicsEngine{
 	for(int i = 0; i < bodies.length; i++){
 	    colors = bodies[i].getRGB();
 	    StdDraw.setPenColor(colors[0], colors[1], colors[2]);
-	    StdDraw.filledCircle(bodies[i].getXCoord(), bodies[i].getYCoord(),
-				 bodies[i].getRadius());
+	    StdDraw.setPenRadius(0.02);
+	    StdDraw.point(bodies[i].getXCoord(), bodies[i].getYCoord());
 	}
 	// TODO: Copy the offscreen canvs to the onscreen canvas
 	StdDraw.show();
