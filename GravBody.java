@@ -10,7 +10,9 @@ public class GravBody implements Body{
     double y;
     double xVel;
     double yVel;
-    int[] rgb;
+    int r;
+    int g;
+    int b;
     double mass;
 
     double xForce;
@@ -23,12 +25,14 @@ public class GravBody implements Body{
 
     //Constructor
     public GravBody(double xc, double yc, double xv, double yv,
-		    int[] color, double m){
+		    int red, int gre, int blu, double m){
 	x = xc;
 	y = yc;
 	xVel = xv;
 	yVel = yv;
-	rgb = color;
+	r = red;
+	g = gre;
+	b = blu;
 	mass = m;
 
 	xForce = 0;
@@ -65,6 +69,8 @@ public class GravBody implements Body{
     }
 
     public int[] getRGB(){
+	int[] rgb = new int[3];
+	rgb[0] = r; rgb[1] = g; rgb[2] = b;
 	return rgb;
     }
 
@@ -156,10 +162,11 @@ public class GravBody implements Body{
 
     public String toString(){
 	String s = "";
-	s = s + x + " " + y + " " + xVel + " " + yVel + " " + mass + " ";
-	for(int i = 0; i < 3; i++){
+	s = s + x + " " + y + " " + xVel + " " + yVel + " " + mass + " " +
+r + " " + g + " " + b + " ";
+	/*for(int i = 0; i < 3; i++){
 	    s = s + rgb[i] + " ";    
-	}
+	    }*/
         return s;
     }
 }

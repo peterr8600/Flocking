@@ -38,7 +38,6 @@ public class ColEngine extends PhysicsEngine{
 	    for(int x = 0; x < bodies.length; x++){
 		if(x != i){
 		    bodies[i].addForceFrom(bodies[x]);
-		    bodies[i].addVelPEC(bodies[x]);
 		}
 	    }
 	}

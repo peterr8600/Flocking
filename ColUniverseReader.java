@@ -52,7 +52,6 @@ public class ColUniverseReader extends UniverseReader{
 	    tempYVel = input.readDouble();
 	    tempMass = input.readDouble();
 	    tempRadius = input.readDouble();
-	    System.out.println(tempRadius);
 	    
 	    tempR = input.readInt();
 	    //System.out.println("R" + tempR);

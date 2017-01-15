@@ -104,14 +104,18 @@ public class ColBody implements Body{
     public void addForceFrom(Body b){
 	xForce += this.getXForce(b);
 	yForce += this.getYForce(b);
-    }
-
-    public void addVelPEC(Body b){
 	if(isCollidingWith(b)){
 	    xVel += this.calcVXPEC(b);
 	    yVel += this.calcVYPEC(b);
 	}
     }
+
+    /*public void addVelPEC(Body b){
+	if(isCollidingWith(b)){
+	    xVel += this.calcVXPEC(b);
+	    yVel += this.calcVYPEC(b);
+	}
+	}*/
 
     public void move(double tDelta){
 	xAccel = xForce/mass;

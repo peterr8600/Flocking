@@ -42,7 +42,7 @@ public class GravUniverseReader extends UniverseReader{
 	int tempR;
 	int tempG;
 	int tempB;
-	int[] tempRGB = new int[3];
+	//int[] tempRGB = new int[3];
 
 	for(int i = 0; i < numBodies; i++){
 	    tempX = input.readDouble();
@@ -55,11 +55,12 @@ public class GravUniverseReader extends UniverseReader{
 	    tempG = input.readInt();
 	    tempB = input.readInt();
 
-	    tempRGB[0] = tempR;
-	    tempRGB[1] = tempG;
-	    tempRGB[2] = tempB;
+	    //tempRGB[0] = tempR;
+	    //tempRGB[1] = tempG;
+	    //tempRGB[2] = tempB;
 
-	    b[i] = new GravBody(tempX, tempY, tempXVel, tempYVel, tempRGB, tempMass);
+	    b[i] = new GravBody(tempX, tempY, tempXVel, tempYVel, tempR, tempG, 
+				tempB, tempMass);
 	}
 
 	universeRadius = rad;
