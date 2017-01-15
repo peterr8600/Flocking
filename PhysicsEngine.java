@@ -38,6 +38,7 @@ public abstract class PhysicsEngine{
 	this.uniRad = universeRadius;
 	this.bodies = bodies;
 	this.bgColor = new Color(bgRed, bgBlue, bgGreen);
+	//System.out.println("" + bgRed+ bgBlue+ bgGreen);
     }
 
     /**
@@ -69,14 +70,18 @@ public abstract class PhysicsEngine{
      */
     private void drawData(){
 	// TODO: Clear the canvas
-	StdDraw.clear();
+	StdDraw.clear(bgColor);
 	// TODO: Draw each body on the offscreen canvas
 	int[] colors;
 	for(int i = 0; i < bodies.length; i++){
 	    colors = bodies[i].getRGB();
 	    StdDraw.setPenColor(colors[0], colors[1], colors[2]);
-	    StdDraw.setPenRadius(0.02);
-	    StdDraw.point(bodies[i].getXCoord(), bodies[i].getYCoord());
+	    //System.out.println("" + colors[0] + colors[1] + colors[2]);
+	    //StdDraw.setPenColor(colors[0], colors[1], colors[2]);
+	    //StdDraw.setPenRadius(0.02);
+	    //StdDraw.point(bodies[i].getXCoord(), bodies[i].getYCoord());
+	    StdDraw.filledCircle(bodies[i].getXCoord(), bodies[i].getYCoord(), 
+			    bodies[i].getRadius());
 	}
 	// TODO: Copy the offscreen canvs to the onscreen canvas
 	StdDraw.show();
