@@ -234,6 +234,10 @@ public class TestGravBody {
 	GravBody gbVenus = new GravBody(1E11, 0, 0, 3.5E4, rgb0,4.87E24);
 
 	// TODO: Assert that the x and y component of force on gbA are 0
+	assertEquals(0, gbSun.getXForce(), delta);
+	assertEquals(0, gbSun.getYForce(), delta);
+	assertEquals(0, gbVenus.getXForce(), delta);
+	assertEquals(0, gbVenus.getYForce(), delta);
 	// HINT: There's no method on the Body to get the forces--but gbA is
 	// a GravBody. So you can add methods to gravBody that isnt' on the
 	// interface to get the forces you need solely for testing purposes.
@@ -241,8 +245,11 @@ public class TestGravBody {
 	//gbA.addForceFrom(gbB);
 	//gbA.addForceFrom(gbC);
 
-	// TODO: Assert that the x and y components of force on gbA are correct
+	gbSun.addForceFrom(gbVenus);
+	gbVenus.addForceFrom(gbSun);
 
+	// TODO: Assert that the x and y components of force on gbA are correct
+	
 
 	// TODO: Assert that the x and y components of force on gbB are 0
 
