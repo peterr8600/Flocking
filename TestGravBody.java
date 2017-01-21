@@ -7,10 +7,11 @@ public class TestGravBody {
     @Test
     public void testGetDistanceTo(){
 	int[] rgb0 = {0, 0, 0};
-	GravBody gb0 = new GravBody(-4, -2, 0, 0, rgb0, 0);
-	GravBody gb1 = new GravBody(2, 2, 0, 0, rgb0, 0);
-	GravBody gb2a = new GravBody(0, 0, 0, 0, rgb0, 0);
-	GravBody gb2b = new GravBody(0, 0, 0, 0, rgb0, 0);
+	GravBody gb0 = new GravBody(-4, -2, 0, 0, 0, 0, 0, 0);
+	GravBody gb1 = new GravBody(2, 2, 0, 0, 0, 0, 0, 0);
+	GravBody gb2a = new GravBody(0, 0, 0, 0, 0, 0, 0, 0);
+	GravBody gb2b = 
+	    new GravBody(0.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0);
 	
 	double delta = 0.00001;
 	assertEquals(7.21110, gb0.getDistanceTo(gb1), delta);
@@ -21,9 +22,9 @@ public class TestGravBody {
     @Test
     public void testGetAngle(){
 	int[] rgb0 = {0, 0, 0};
-	GravBody gb0 = new GravBody(0, 0, 0, 0, rgb0, 0);
-	GravBody gb1 = new GravBody(3, 3, 0, 0, rgb0, 0);
-	GravBody gb2 = new GravBody(5, 2, 0, 0, rgb0, 0);
+	GravBody gb0 = new GravBody(0, 0, 0, 0, 0, 0, 0, 0);
+	GravBody gb1 = new GravBody(3, 3, 0, 0, 0, 0, 0, 0);
+	GravBody gb2 = new GravBody(5, 2, 0, 0, 0, 0, 0, 0);
 
 	double delta = 0.00001;
 	assertEquals(Math.PI/4, gb0.getAngle(gb1), delta);
@@ -34,12 +35,12 @@ public class TestGravBody {
     @Test
     public void testGetForceFrom(){
 	int[] rgb0 = {0, 0, 0};
-	GravBody earth = new GravBody(0, 0, 0, 0, rgb0, 5.972E24);
-	GravBody moon = new GravBody(3.84E8, 0, 0, 0, rgb0, 7.348972E22);
-	GravBody gb0 = new GravBody(0, 0, 0, 0, rgb0, 10);
-	GravBody gb1 = new GravBody(10, 0, 0, 0, rgb0, 10);
+	GravBody earth = new GravBody(0, 0, 0, 0, 0, 0, 0, 5.972E24);
+	GravBody moon = new GravBody(3.84E8, 0, 0, 0, 0, 0, 0, 7.348972E22);
+	GravBody gb0 = new GravBody(0, 0, 0, 0, 0, 0, 0, 10);
+	GravBody gb1 = new GravBody(10, 0, 0, 0, 0, 0, 0, 10);
 
-	double delta0 = 1E15;
+	double delta0 = 1E18;
 	assertEquals(1.98523E20, earth.getForceFrom(moon), delta0);
 	double delta1 = 1E-9;
 	assertEquals(6.67E-11, gb0.getForceFrom(gb1), delta0);
@@ -48,9 +49,9 @@ public class TestGravBody {
     @Test
     public void testGetXForce(){
 	int[] rgb0 = {0, 0, 0};
-	GravBody gb0 = new GravBody(0, 0, 0, 0, rgb0, 1000000);
-	GravBody gb1 = new GravBody(1000000, 2000000, 0, 0, rgb0, 1000000);
-	GravBody gb2 = new GravBody(3000000, 5000000, 0, 0, rgb0, 10000000);
+	GravBody gb0 = new GravBody(0, 0, 0, 0, 0, 0, 0, 1000000);
+	GravBody gb1 = new GravBody(1000000, 2000000, 0, 0, 0, 0, 0, 1000000);
+	GravBody gb2 = new GravBody(3000000, 5000000, 0, 0, 0, 0, 0, 10000000);
 	
 	double delta = 0.00000000000001;
 	double c = gb0.getForceFrom(gb1);
@@ -71,11 +72,11 @@ public class TestGravBody {
     @Test
     public void testGetYForce(){
 	int[] rgb0 = {0, 0, 0};
-	GravBody gb0 = new GravBody(0, 0, 0, 0, rgb0, 1000000);
-	GravBody gb1 = new GravBody(1000000, 2000000, 0, 0, rgb0, 1000000);
-	GravBody gb2 = new GravBody(3000000, 5000000, 0, 0, rgb0, 10000000);
+	GravBody gb0 = new GravBody(0, 0, 0, 0, 0, 0, 0, 1000000);
+	GravBody gb1 = new GravBody(1000000, 2000000, 0, 0, 0, 0, 0, 1000000);
+	GravBody gb2 = new GravBody(3000000, 5000000, 0, 0, 0, 0, 0, 10000000);
 	
-	double delta = 0.00000000000001;
+	double delta = 1E-13;
 	
 	double c = gb0.getForceFrom(gb1);
 	//System.out.println("F: " + c);
@@ -91,13 +92,13 @@ public class TestGravBody {
     public void testGetXCoord() {
 	int[] rgb0 = {0, 0, 0};
 	GravBody gb0 = new GravBody(1986.1203, 2032.0983, -132.2345, 214.9004,
-				    rgb0, 90321348.7326);
+				    0, 0, 0, 90321348.7326);
 	int[] rgb1 = {255, 255, 255};
 	GravBody gb1 = new GravBody(5325.6743, 4012.3236, 1203.8753, 7462.4217,
-				    rgb1, 984212524.8921);
+				    255, 255, 255, 984212524.8921);
 	int[] rgb2 = {10, 20, 30};
 	GravBody gb2 = new GravBody(4437.7241, 8982.3511, -1329.2145,
-				    -1248.3326, rgb2, 50.0);
+				    -1248.3326, 10, 20, 30, 50.0);
 	// It is NEVER a good idea to check if floating point numbers are
         // ==. To represent floating point numbers using binary, the
 	// computer must ROUND when it does math. 
@@ -119,13 +120,13 @@ public class TestGravBody {
     public void testGetYCoord() {
 	int[] rgb0 = {0, 0, 0};
 	GravBody gb0 = new GravBody(1986.1203, 2032.0983, -132.2345, 214.9004,
-				    rgb0, 90321348.7326);
+				    0, 0, 0, 90321348.7326);
 	int[] rgb1 = {255, 255, 255};
 	GravBody gb1 = new GravBody(5325.6743, 4012.3236, 1203.8753, 7462.4217,
-				    rgb1, 984212524.8921);
+				    255, 255, 255, 984212524.8921);
 	int[] rgb2 = {10, 20, 30};
 	GravBody gb2 = new GravBody(4437.7241, 8982.3511, -1329.2145,
-				    -1248.3326, rgb2, 50.0);
+				    -1248.3326, 10, 20, 30, 50.0);
 
 	double delta = 0.00001;
 	
@@ -138,13 +139,13 @@ public class TestGravBody {
     public void testGetXVel() {
 	int[] rgb0 = {0, 0, 0};
 	GravBody gb0 = new GravBody(1986.1203, 2032.0983, -132.2345, 214.9004,
-				    rgb0, 90321348.7326);
+				    0, 0, 0, 90321348.7326);
 	int[] rgb1 = {255, 255, 255};
 	GravBody gb1 = new GravBody(5325.6743, 4012.3236, 1203.8753, 7462.4217,
-				    rgb1, 984212524.8921);
+				    255, 255, 255, 984212524.8921);
 	int[] rgb2 = {10, 20, 30};
 	GravBody gb2 = new GravBody(4437.7241, 8982.3511, -1329.2145,
-				    -1248.3326, rgb2, 50.0);
+				    -1248.3326, 10, 20, 30, 50.0);
 
 	double delta = 0.00001;
 	
@@ -157,13 +158,13 @@ public class TestGravBody {
     public void testGetYVel() {
 	int[] rgb0 = {0, 0, 0};
 	GravBody gb0 = new GravBody(1986.1203, 2032.0983, -132.2345, 214.9004,
-				    rgb0, 90321348.7326);
+				    0, 0, 0, 90321348.7326);
 	int[] rgb1 = {255, 255, 255};
 	GravBody gb1 = new GravBody(5325.6743, 4012.3236, 1203.8753, 7462.4217,
-				    rgb1, 984212524.8921);
+				    255, 255, 255, 984212524.8921);
 	int[] rgb2 = {10, 20, 30};
 	GravBody gb2 = new GravBody(4437.7241, 8982.3511, -1329.2145,
-				    -1248.3326, rgb2, 50.0);
+				    -1248.3326, 10, 20, 30, 50.0);
 
 	double delta = 0.00001;
 	
@@ -177,13 +178,13 @@ public class TestGravBody {
     public void testGetRadius() {
 	int[] rgb0 = {0, 0, 0};
 	GravBody gb0 = new GravBody(1986.1203, 2032.0983, -132.2345, 214.9004,
-				    rgb0, 90321348.7326);
+				    0, 0, 0, 90321348.7326);
 	int[] rgb1 = {255, 255, 255};
 	GravBody gb1 = new GravBody(5325.6743, 4012.3236, 1203.8753, 7462.4217,
-				    rgb1, 984212524.8921);
+				    255, 255, 255, 984212524.8921);
 	int[] rgb2 = {10, 20, 30};
 	GravBody gb2 = new GravBody(4437.7241, 8982.3511, -1329.2145,
-				    -1248.3326, rgb2, 50.0);
+				    -1248.3326, 10, 20, 30, 50.0);
 
 	double delta = 0.00001;
     }
@@ -192,13 +193,13 @@ public class TestGravBody {
     public void testGetRGB() {
 	int[] rgb0 = {0, 0, 0};
 	GravBody gb0 = new GravBody(1986.1203, 2032.0983, -132.2345, 214.9004,
-				    rgb0, 90321348.7326);
+				    0, 0, 0, 90321348.7326);
 	int[] rgb1 = {255, 255, 255};
 	GravBody gb1 = new GravBody(5325.6743, 4012.3236, 1203.8753, 7462.4217,
-				    rgb1, 984212524.8921);
+				    255, 255, 255, 984212524.8921);
 	int[] rgb2 = {10, 20, 30};
 	GravBody gb2 = new GravBody(4437.7241, 8982.3511, -1329.2145,
-				    -1248.3326, rgb2, 50.0);
+				    -1248.3326, 10, 20, 30, 50.0);
 
 	assertEquals(true, Arrays.equals(rgb0, gb0.getRGB()));
 	assertEquals(true, Arrays.equals(rgb1, gb1.getRGB()));
@@ -209,13 +210,13 @@ public class TestGravBody {
     public void testGetMass() {
 	int[] rgb0 = {0, 0, 0};
 	GravBody gb0 = new GravBody(1986.1203, 2032.0983, -132.2345, 214.9004,
-				    rgb0, 90321348.7326);
+				    0, 0, 0, 90321348.7326);
 	int[] rgb1 = {255, 255, 255};
 	GravBody gb1 = new GravBody(5325.6743, 4012.3236, 1203.8753, 7462.4217,
-				    rgb1, 984212524.8921);
+				    255, 255, 255, 984212524.8921);
 	int[] rgb2 = {10, 20, 30};
 	GravBody gb2 = new GravBody(4437.7241, 8982.3511, -1329.2145,
-				    -1248.3326, rgb2, 50.0);
+				    -1248.3326, 10, 20, 30, 50.0);
 
 	double delta = 0.00001;
 	
@@ -229,15 +230,20 @@ public class TestGravBody {
 	// HINT: The physics coursework/homework you did is helpful here
 	int[] rgb0 = {255, 255, 255};
 	
-	GravBody gbSun = new GravBody(0, 0, 0, 0, rgb0, 1.989E30);
-	GravBody gbEarth = new GravBody(1.5E11, 0, 0, 3.0E4, rgb0, 5.972E24);
-	GravBody gbVenus = new GravBody(1E11, 0, 0, 3.5E4, rgb0,4.87E24);
+	GravBody gbSun = new GravBody(0, 0, 0, 0, 0, 0, 0, 1.989E30);
+	GravBody gbEarth = 
+	    new GravBody(1.5E11, 0.0, 0.0, 3.0E4, 0, 0, 0, 5.972E24);
+	GravBody gbVenus = new GravBody(1E11, 0.0, 0.0, 3.5E4, 0, 0, 0, 04.87E24);
+
+	double delta = 1E19;
 
 	// TODO: Assert that the x and y component of force on gbA are 0
 	assertEquals(0, gbSun.getXForce(), delta);
 	assertEquals(0, gbSun.getYForce(), delta);
 	assertEquals(0, gbVenus.getXForce(), delta);
 	assertEquals(0, gbVenus.getYForce(), delta);
+	assertEquals(0, gbEarth.getXForce(), delta);
+	assertEquals(0, gbEarth.getYForce(), delta);
 	// HINT: There's no method on the Body to get the forces--but gbA is
 	// a GravBody. So you can add methods to gravBody that isnt' on the
 	// interface to get the forces you need solely for testing purposes.
@@ -248,6 +254,43 @@ public class TestGravBody {
 	gbSun.addForceFrom(gbVenus);
 	gbVenus.addForceFrom(gbSun);
 
+	//Sun + Venus	
+	assertEquals(6.4647E22, gbSun.getXForce(), delta);
+	assertEquals(0, gbSun.getYForce(), delta);
+	//Venus + Sun
+	assertEquals(-6.4647E22, gbVenus.getXForce(), delta);
+	assertEquals(0, gbVenus.getYForce(), delta);
+
+	gbSun.addForceFrom(gbEarth);
+	gbEarth.addForceFrom(gbSun);
+
+	//Sun + Venus + Earth
+	assertEquals(9.9881E22, gbSun.getXForce(), delta);
+	assertEquals(0, gbSun.getYForce(), delta);
+	//Earth + Sun
+	assertEquals(-3.5234E22, gbEarth.getXForce(), delta);
+	assertEquals(0, gbEarth.getYForce(), delta);
+
+	gbVenus.addForceFrom(gbEarth);
+	gbEarth.addForceFrom(gbVenus);
+
+	//Venus + Sun + Earth
+	assertEquals(-6.4655E22, gbVenus.getXForce(), delta);
+	assertEquals(0, gbVenus.getYForce(), delta);
+	//Earth + Sun + Venus
+	assertEquals(-3.52419E22, gbEarth.getXForce(), delta);
+	assertEquals(0, gbEarth.getYForce(), delta);
+	
+	gbSun.move(0.1);
+	gbVenus.move(0.1);
+	gbEarth.move(0.1);
+
+	assertEquals(0, gbSun.getXForce(), delta);
+	assertEquals(0, gbSun.getYForce(), delta);
+	assertEquals(0, gbVenus.getXForce(), delta);
+	assertEquals(0, gbVenus.getYForce(), delta);
+	assertEquals(0, gbEarth.getXForce(), delta);
+	assertEquals(0, gbEarth.getYForce(), delta);
 	// TODO: Assert that the x and y components of force on gbA are correct
 	
 

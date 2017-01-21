@@ -21,7 +21,7 @@ public class GravBody implements Body{
     double xAccel;
     double yAccel;
 
-    final double G = 6.67E-11;
+    final double G = 6.67408E-11;
 
     //Constructor
     public GravBody(double xc, double yc, double xv, double yv,
