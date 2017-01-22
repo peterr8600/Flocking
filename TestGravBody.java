@@ -227,29 +227,22 @@ public class TestGravBody {
 
     @Test
     public void testAddForceFrom(){
-	// HINT: The physics coursework/homework you did is helpful here
 	int[] rgb0 = {255, 255, 255};
 	
 	GravBody gbSun = new GravBody(0, 0, 0, 0, 0, 0, 0, 1.989E30);
 	GravBody gbEarth = 
 	    new GravBody(1.5E11, 0.0, 0.0, 3.0E4, 0, 0, 0, 5.972E24);
-	GravBody gbVenus = new GravBody(1E11, 0.0, 0.0, 3.5E4, 0, 0, 0, 04.87E24);
+	GravBody gbVenus = 
+	    new GravBody(1E11, 0.0, 0.0, 3.5E4, 0, 0, 0, 04.87E24);
 
 	double delta = 1E19;
 
-	// TODO: Assert that the x and y component of force on gbA are 0
 	assertEquals(0, gbSun.getXForce(), delta);
 	assertEquals(0, gbSun.getYForce(), delta);
 	assertEquals(0, gbVenus.getXForce(), delta);
 	assertEquals(0, gbVenus.getYForce(), delta);
 	assertEquals(0, gbEarth.getXForce(), delta);
 	assertEquals(0, gbEarth.getYForce(), delta);
-	// HINT: There's no method on the Body to get the forces--but gbA is
-	// a GravBody. So you can add methods to gravBody that isnt' on the
-	// interface to get the forces you need solely for testing purposes.
-
-	//gbA.addForceFrom(gbB);
-	//gbA.addForceFrom(gbC);
 
 	gbSun.addForceFrom(gbVenus);
 	gbVenus.addForceFrom(gbSun);
@@ -291,41 +284,90 @@ public class TestGravBody {
 	assertEquals(0, gbVenus.getYForce(), delta);
 	assertEquals(0, gbEarth.getXForce(), delta);
 	assertEquals(0, gbEarth.getYForce(), delta);
-	// TODO: Assert that the x and y components of force on gbA are correct
-	
-
-	// TODO: Assert that the x and y components of force on gbB are 0
-
-	//gbB.addForceFrom(gbA);
-	//gbB.addForceFrom(gbC);
-
-	// TODO: Assert that x and y components of force on gbB are correct
-
-	
-	// TODO: Write test ensuring that forces can be calculated correctly
-	// for gbC
-	// HINT: It's the same as the last two test cases you wrote.
     }
 
     @Test
     public void testMove(){
-	// HINT: The physics coursework/homework you did her is helpful.
-
-	// TODO: Create 3 GravBody objects
-
-	// TODO: For each GravBody object, add force from other two
+       	GravBody gbSun = new GravBody(0, 0, 0, 0, 0, 0, 0, 1.989E30);
+	GravBody gbEarth = 
+	    new GravBody(1.5E11, 0.0, 0.0, 3.0E4, 0, 0, 0, 5.972E24);
+	GravBody gbVenus = 
+	    new GravBody(1E11, 0.0, 0.0, 3.5E4, 0, 0, 0, 04.87E24);
 	
-	// TODO: Move each GravBody object for some time delta
+	double deltaSun = 1E-13;
+	double deltaEV = 1E10;
 
-	// TODO: For each GravBody object, assert that new x and y coordinates
-	// are correct after movement
-
-	// TODO: For each GravBody object, assert that x and y components of
-	// force are now 0
-
+	//Calculations Round 1
+	//Copy from here
+	gbSun.addForceFrom(gbVenus);
+	gbSun.addForceFrom(gbEarth);
 	
-	// TODO: Repeat the above process on the same 3 GravBody objects once
-	// more.
+	gbVenus.addForceFrom(gbEarth);
+	gbVenus.addForceFrom(gbSun);
+	
+	gbEarth.addForceFrom(gbVenus);
+	gbEarth.addForceFrom(gbSun);
+	
+	gbSun.move(0.1);
+	gbVenus.move(0.1);
+	gbEarth.move(0.1);
+	//To here
+	
+	assertEquals(5.021669E-10, gbSun.getXCoord(), deltaSun);
+	assertEquals(0, gbSun.getYCoord(), deltaSun);
+
+	assertEquals(1E11, gbVenus.getXCoord(), deltaEV);
+	assertEquals(3.5E3, gbVenus.getYCoord(), 1);
+
+	assertEquals(1.5E11, gbEarth.getXCoord(), deltaEV);
+	assertEquals(3E3, gbEarth.getYCoord(), 1);
+
+	assertEquals(0, gbSun.getXForce(), 1);
+	assertEquals(0, gbSun.getYForce(), 1);
+	assertEquals(0, gbVenus.getXForce(), 1);
+	assertEquals(0, gbVenus.getYForce(), 1);
+	assertEquals(0, gbEarth.getXForce(), 1);
+	assertEquals(0, gbEarth.getYForce(), 1);
+	
+	//Calculations Round 2
+	gbSun.addForceFrom(gbVenus);
+	gbSun.addForceFrom(gbEarth);
+	
+	gbVenus.addForceFrom(gbEarth);
+	gbVenus.addForceFrom(gbSun);
+	
+	gbEarth.addForceFrom(gbVenus);
+	gbEarth.addForceFrom(gbSun);
+	
+	System.out.println("XForce: " + gbEarth.getXForce());
+	System.out.println("XVel: " + gbEarth.getXVel());
+	System.out.println("XCoord: " + gbEarth.getXCoord());
+	System.out.println("YForce: " + gbEarth.getYForce());
+	System.out.println("YVel: " + gbEarth.getYVel());
+	System.out.println("YCoord: " + gbEarth.getYCoord());
+
+	gbSun.move(0.1);
+	gbVenus.move(0.1);
+	gbEarth.move(0.1);
+	
+	System.out.println("XCoord: " + gbEarth.getXCoord());
+	System.out.println("YCoord: " + gbEarth.getYCoord());
+
+	assertEquals(1.506516E-9, gbSun.getXCoord(), deltaSun);
+	assertEquals(1.491885E-17, gbSun.getYCoord(), deltaSun);
+
+	assertEquals(1E11, gbVenus.getXCoord(), deltaEV);
+	assertEquals(7E3, gbVenus.getYCoord(), 1);
+
+	assertEquals(1.5E11, gbEarth.getXCoord(), deltaEV);
+	assertEquals(6E3, gbEarth.getYCoord(), 1);
+	
+	assertEquals(0, gbSun.getXForce(), 1);
+	assertEquals(0, gbSun.getYForce(), 1);
+	assertEquals(0, gbVenus.getXForce(), 1);
+	assertEquals(0, gbVenus.getYForce(), 1);
+	assertEquals(0, gbEarth.getXForce(), 1);
+	assertEquals(0, gbEarth.getYForce(), 1);
     }
 
     
