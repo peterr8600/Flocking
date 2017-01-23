@@ -10,6 +10,10 @@ public class ColBody implements Body{
     double y;
     double xVel;
     double yVel;
+    
+    double tempXVel;
+    double tempYVel;
+    
     int r;
     int g;
     int b;
@@ -23,7 +27,7 @@ public class ColBody implements Body{
     double xAccel;
     double yAccel;
 
-    final double G = 6.67E-11;
+    final double G = 6.674E-11;
 
     //Constructor
     public ColBody(double xc, double yc, double xv, double yv,
@@ -105,8 +109,8 @@ public class ColBody implements Body{
 	xForce += this.getXForce(b);
 	yForce += this.getYForce(b);
 	if(isCollidingWith(b)){
-	    xVel += this.calcVXPEC(b);
-	    yVel += this.calcVYPEC(b);
+	    tempXVel += this.calcVXPEC(b);
+	    tempYVel += this.calcVYPEC(b);
 	}
     }
 
@@ -120,13 +124,15 @@ public class ColBody implements Body{
     public void move(double tDelta){
 	xAccel = xForce/mass;
 	yAccel = yForce/mass;
-	xVel = xVel + (xAccel * tDelta);
-	yVel = yVel + (yAccel * tDelta);
+	xVel = xVel + tempXVel + (xAccel * tDelta);
+	yVel = yVel + tempYVel + (yAccel * tDelta);
 	x += xVel * tDelta;
 	y += yVel * tDelta;
 
 	xForce = 0;
 	yForce = 0;
+	tempXVel = 0;
+	tempYVel = 0;
     }
 
     //Part 1
