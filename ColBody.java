@@ -21,15 +21,11 @@ public class ColBody implements Body{
     double mass;
     double radius;
 
-    double xForce;
-    double yForce;
-
-    double xAccel;
-    double yAccel;
-
     final double G = 6.674E-11;
 
     //Constructor
+    //Usage: X coordinate, Y coordinate, X initial velocity, Y initial velocity
+    //red value, green value, blue value, mass, radius.
     public ColBody(double xc, double yc, double xv, double yv,
 		   int red, int gre, int blu, double m, double rad){
 	x = xc;
@@ -39,21 +35,22 @@ public class ColBody implements Body{
 	r = red;
 	g = gre;
 	b = blu;
-	//System.out.println("R" + rgb[0] + "G" + rgb[1] + "B" + rgb[2]);
 	mass = m;
 	radius = rad;
-
-	xForce = 0;
-	yForce = 0;
     }
 
     //Part 1 methods
+    //Returns true if this Body is touching another Body, body.
+    //distance between two bodies is <= sum of their radii.
     public boolean isTouching(Body body){
 	double distance = this.getDistanceTo(body);
 	double sumRadii = this.getRadius() + body.getRadius();
 	return distance <= sumRadii;
     }
 
+    //Returns true if this Body is moving towards another Body, body.
+    //the dot product of the relative difference in the bodies' positions and 
+    //the relative difference in the bodies' velocities is negative.
     public boolean isMovingTowards(Body body){
 	double deltaX = (body.getXCoord() - this.getXCoord());
 	double deltaVX = (body.getXVel() - this.getXVel());
@@ -62,151 +59,119 @@ public class ColBody implements Body{
 	return (deltaX * deltaVX) + (deltaY * deltaVY) < 0;
     }
 
+    //Returns true if this Body is both touching and moving towards another
+    //Body body.
     public boolean isCollidingWith(Body body){
 	return this.isTouching(body) && this.isMovingTowards(body);
     }
 
     //Methods
+    //Returns current X coordinate.
     public double getXCoord(){
 	return x;
     }
 
+    //Returns current Y coordinate.
     public double getYCoord(){
 	return y;
     }
 
+    //Returns current X velocity.
     public double getXVel(){
 	return xVel;
     }
 
+    //Returns current Y velocity.
     public double getYVel(){
 	return yVel;
     }
 
-    public double getXForce(){
-	return xForce;
-    }
-
-    public double getYForce(){
-	return yForce;
-    }
-
+    //Returns radius of this Body.
     public double getRadius(){
 	return radius;
     }
 
+    //Returns the RGB values of this Body.
     public int[] getRGB(){
 	int[] rgb = new int[3];
 	rgb[0] = r; rgb[1] = g; rgb[2] = b;
 	return rgb;
     }
 
+    //Returns mass of this body.
     public double getMass(){
 	return mass;
     }
 
+    //Handles changes in X and Y velocities when this Body collides with 
+    //Body, b.
     public void addForceFrom(Body b){
-	xForce += this.getXForce(b);
-	yForce += this.getYForce(b);
 	if(isCollidingWith(b)){
 	    tempXVel += this.calcVXPEC(b);
 	    tempYVel += this.calcVYPEC(b);
 	}
     }
 
-    /*public void addVelPEC(Body b){
-	if(isCollidingWith(b)){
-	    xVel += this.calcVXPEC(b);
-	    yVel += this.calcVYPEC(b);
-	}
-	}*/
-
+    //Moves this Body by (xyVel * tDelta).
     public void move(double tDelta){
-	xAccel = xForce/mass;
-	yAccel = yForce/mass;
-	xVel = xVel + tempXVel + (xAccel * tDelta);
-	yVel = yVel + tempYVel + (yAccel * tDelta);
+	xVel = xVel + tempXVel;
+	yVel = yVel + tempYVel;
 	x += xVel * tDelta;
 	y += yVel * tDelta;
 
-	xForce = 0;
-	yForce = 0;
 	tempXVel = 0;
 	tempYVel = 0;
     }
 
     //Part 1
+    //Returns the X component of velocity after a perfectly elastic collision.
     public double calcVXPEC(Body body){
 	//First parenthesis
-	double p1 = (2 * body.getMass())/(this.getMass() + body.getMass());
+	double massRatio =
+	    (2 * body.getMass())/(this.getMass() + body.getMass());
+	
 	//Second parenthesis
-	double p2 = (body.getXCoord() - this.getXCoord());
+	double xDiff = (body.getXCoord() - this.getXCoord());
+	
 	//Third parenthesis
 	double p3num = (((body.getXCoord() - this.getXCoord()) * (body.getXVel() - this.getXVel())) + ((body.getYCoord() - this.getYCoord()) * (body.getYVel() - this.getYVel())));
+	
 	double p3denom = ((Math.pow(body.getXCoord() - this.getXCoord(), 2)) + (Math.pow(body.getYCoord() - this.getYCoord(), 2)));
-	return p1 * p2 * (p3num/p3denom);
+	return massRatio * xDiff * (p3num/p3denom);
     }
 
+    //Returns the Y component of velocity after a perfectly elastic collision.
     public double calcVYPEC(Body body){
 	//First parenthesis
-	double p1 = (2 * body.getMass())/(this.getMass() + body.getMass());
+	double massRatio = 
+	    (2 * body.getMass())/(this.getMass() + body.getMass());
+	
 	//Second parenthesis
-	double p2 = (body.getYCoord() - this.getYCoord());
+	double yDiff = (body.getYCoord() - this.getYCoord());
+	
 	//Third parenthesis
 	double p3num = (((body.getXCoord() - this.getXCoord()) * (body.getXVel() - this.getXVel())) + ((body.getYCoord() - this.getYCoord()) * (body.getYVel() - this.getYVel())));
+	
 	double p3denom = ((Math.pow(body.getXCoord() - this.getXCoord(), 2)) + (Math.pow(body.getYCoord() - this.getYCoord(), 2)));
-	return p1 * p2 * (p3num/p3denom);
+	return massRatio * yDiff * (p3num/p3denom);
     }
     
     //Helper methods
     public double getXDiff(Body body){
-	return body.getXCoord() - this.getXCoord();
+        return body.getXCoord() - this.getXCoord();
     }
 
     public double getYDiff(Body body){
-	return body.getYCoord() - this.getYCoord();
+        return body.getYCoord() - this.getYCoord();
     }
-    
+
     public double  getDistanceTo(Body body){
-	double a = this.getXDiff(body);
-	double b = this.getYDiff(body);
-	double c = Math.pow((Math.pow(a, 2) + Math.pow(b, 2)), .5);
-	return c;
+        double a = this.getXDiff(body);
+        double b = this.getYDiff(body);
+        double c = Math.pow((Math.pow(a, 2) + Math.pow(b, 2)), .5);
+        return c;
     }
     
-    public double getAngle(Body body){
-	double a = this.getXDiff(body);
-	double b = this.getYDiff(body);
-       	//double c = this.getDistanceTo(body);
-       	double theta = Math.atan2(b, a);
-       	//double theta = Math.acos(a/c);
-	return theta;
-    }
-    
-    public double getForceFrom(Body body){
-	double force;
-	double m1 = this.getMass();
-	double m2 = body.getMass();
-	double r = this.getDistanceTo(body);
-	force = (G * m1 * m2)/(Math.pow(r, 2));
-
-	return force;
-    }
-
-    public double getXForce(Body body){
-	double c = this.getForceFrom(body);
-	double theta = this.getAngle(body);
-	double xF = c * Math.cos(theta);
-	return xF;
-    }
-
-    public double getYForce(Body body){
-	double c = this.getForceFrom(body);
-	double theta = this.getAngle(body);
-	double yF = c * Math.sin(theta);
-	return yF;
-    }
-
     public String toString(){
 	String s = "";
 	s = s + x + " " + y + " " + xVel + " " + yVel + " " + mass + " " +
