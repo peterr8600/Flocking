@@ -18,75 +18,6 @@ public class TestColBody {
 	assertEquals(2.82842, gb1.getDistanceTo(gb2a), delta);
 	assertEquals(0, gb2a.getDistanceTo(gb2b), delta);
     }
-
-    @Test
-    public void testGetAngle(){
-	int[] rgb0 = {0, 0, 0};
-	ColBody gb0 = new ColBody(0, 0, 0, 0, 0, 0, 0, 0, 0);
-	ColBody gb1 = new ColBody(3, 3, 0, 0, 0, 0, 0, 0, 0);
-	ColBody gb2 = new ColBody(5, 2, 0, 0, 0, 0, 0, 0, 0);
-
-	double delta = 0.00001;
-	assertEquals(Math.PI/4, gb0.getAngle(gb1), delta);
-	//assertEquals(.38051, gb2.getAngle(gb0), delta);
-	//assertEquals(.38051, gb0.getAngle(gb2), delta);
-    }
-    
-    @Test
-    public void testGetForceFrom(){
-	int[] rgb0 = {0, 0, 0};
-	ColBody earth = new ColBody(0.0, 0.0, 0.0, 0.0, 0, 0, 0, 5.972E24, 0.0);
-	ColBody moon = new ColBody(3.84E8, 0.0, 0.0, 0.0, 0, 0, 0, 7.348972E22, 0.0);
-	ColBody gb0 = new ColBody(0.0, 0.0, 0.0, 0.0, 0, 0, 0, 10.0, 0.0);
-	ColBody gb1 = new ColBody(10.0, 0.0, 0.0, 0.0, 0, 0, 10, 0.0, 0.0);
-
-	double delta0 = 1E18;
-	assertEquals(1.98523E20, earth.getForceFrom(moon), delta0);
-	double delta1 = 1E-9;
-	assertEquals(6.67E-11, gb0.getForceFrom(gb1), delta0);
-    }
-
-    @Test
-    public void testGetXForce(){
-	int[] rgb0 = {0, 0, 0};
-	ColBody gb0 = new ColBody(0, 0, 0, 0, 0, 0, 0, 1000000, 0.0);
-	ColBody gb1 = new ColBody(1000000, 2000000, 0, 0, 0, 0, 0, 1000000, 0.0);
-	ColBody gb2 = new ColBody(3000000, 5000000, 0, 0, 0, 0, 0, 10000000, 0.0);
-	
-	double delta = 0.00000000000001;
-	double c = gb0.getForceFrom(gb1);
-	//System.out.println("F: " + c);
-	double theta = gb0.getAngle(gb1);
-	//System.out.println("Theta: " + theta);
-	//System.out.println("xForce: " + c * Math.cos(theta));
-	assertEquals(5.965830E-12, gb0.getXForce(gb1), delta);
-
-	double c1 = gb0.getForceFrom(gb2);
-	//System.out.println("F: " + c1);
-	double theta1 = gb0.getAngle(gb2);
-	//System.out.println("Theta: " + theta1);
-	//System.out.println("xForce: " + c1 * Math.cos(theta1));
-	assertEquals(1.009320E-11, gb0.getXForce(gb2), delta);
-    }
-
-    @Test
-    public void testGetYForce(){
-	int[] rgb0 = {0, 0, 0};
-	ColBody gb0 = new ColBody(0, 0, 0, 0, 0, 0, 0, 1000000, 0.0);
-	ColBody gb1 = new ColBody(1000000, 2000000, 0, 0, 0, 0, 0, 1000000, 0.0);
-	ColBody gb2 = new ColBody(3000000, 5000000, 0, 0, 0, 0, 0, 10000000, 0.0);
-	
-	double delta = 1E-13;
-	
-	double c = gb0.getForceFrom(gb1);
-	//System.out.println("F: " + c);
-	double theta = gb0.getAngle(gb1);
-	//System.out.println("Theta: " + theta);
-	//System.out.println("yForce: " + c * Math.sin(theta));
-	assertEquals(1.193166E-11, gb0.getYForce(gb1), delta);
-
-	assertEquals(1.682199E-11, gb0.getYForce(gb2), delta);
-    }
     
     @Test
     public void testGetXCoord() {
@@ -231,147 +162,101 @@ public class TestColBody {
 
     @Test
     public void testAddForceFrom(){
-	int[] rgb0 = {255, 255, 255};
+	//Test Case 0 - Two ColBodies not touching.
+	ColBody cb00 = new ColBody(0.0, 0.0, 0.0, 1.0, 0, 0, 0, 1.0, 1.0);
+	ColBody cb01 = new ColBody(0.0, 5.0, 0.0, -1.0, 0, 0, 0, 1.0, 1.0);
+    
+	//addForceFrom call
+	cb00.addForceFrom(cb01);
+	cb01.addForceFrom(cb00);
 	
-	ColBody gbSun = new ColBody(0, 0, 0, 0, 0, 0, 0, 1.989E30, 0.0);
-	ColBody gbEarth = 
-	    new ColBody(1.5E11, 0.0, 0.0, 3.0E4, 0, 0, 0, 5.972E24, 0.0);
-	ColBody gbVenus = 
-	    new ColBody(1E11, 0.0, 0.0, 3.5E4, 0, 0, 0, 04.87E24, 0.0);
-
-	double delta = 1E19;
-
-	assertEquals(0, gbSun.getXForce(), delta);
-	assertEquals(0, gbSun.getYForce(), delta);
-	assertEquals(0, gbVenus.getXForce(), delta);
-	assertEquals(0, gbVenus.getYForce(), delta);
-	assertEquals(0, gbEarth.getXForce(), delta);
-	assertEquals(0, gbEarth.getYForce(), delta);
-
-	gbSun.addForceFrom(gbVenus);
-	gbVenus.addForceFrom(gbSun);
-
-	//Sun + Venus	
-	assertEquals(6.4647E22, gbSun.getXForce(), delta);
-	assertEquals(0, gbSun.getYForce(), delta);
-	//Venus + Sun
-	assertEquals(-6.4647E22, gbVenus.getXForce(), delta);
-	assertEquals(0, gbVenus.getYForce(), delta);
-
-	gbSun.addForceFrom(gbEarth);
-	gbEarth.addForceFrom(gbSun);
-
-	//Sun + Venus + Earth
-	assertEquals(9.9881E22, gbSun.getXForce(), delta);
-	assertEquals(0, gbSun.getYForce(), delta);
-	//Earth + Sun
-	assertEquals(-3.5234E22, gbEarth.getXForce(), delta);
-	assertEquals(0, gbEarth.getYForce(), delta);
-
-	gbVenus.addForceFrom(gbEarth);
-	gbEarth.addForceFrom(gbVenus);
-
-	//Venus + Sun + Earth
-	assertEquals(-6.4655E22, gbVenus.getXForce(), delta);
-	assertEquals(0, gbVenus.getYForce(), delta);
-	//Earth + Sun + Venus
-	assertEquals(-3.52419E22, gbEarth.getXForce(), delta);
-	assertEquals(0, gbEarth.getYForce(), delta);
+	//move call
+	cb00.move(1.0);
+	cb01.move(1.0);
 	
-	gbSun.move(0.1);
-	gbVenus.move(0.1);
-	gbEarth.move(0.1);
+	//Test cb00 and cb01 x and y velocities are equal to initial velocities
+	assertEquals(0.0, cb00.getXVel(), 0.0);
+	assertEquals(1.0, cb00.getYVel(), 0.0);
+	assertEquals(0.0, cb01.getXVel(), 0.0);
+	assertEquals(-1.0, cb01.getYVel(), 0.0);
 
-	assertEquals(0, gbSun.getXForce(), delta);
-	assertEquals(0, gbSun.getYForce(), delta);
-	assertEquals(0, gbVenus.getXForce(), delta);
-	assertEquals(0, gbVenus.getYForce(), delta);
-	assertEquals(0, gbEarth.getXForce(), delta);
-	assertEquals(0, gbEarth.getYForce(), delta);
+	//Test Case 1 - Two ColBodies touching, moving away.
+	ColBody cb10 = new ColBody(0.0, 0.0, 1.0, 0.0, 0, 0, 0, 1.0, 5.0);
+	ColBody cb11 = new ColBody(0.0, 5.0, -1.0, 0.0, 0, 0, 0, 1.0, 4.0);
+	
+	//addForceFrom call
+	cb10.addForceFrom(cb11);
+	cb11.addForceFrom(cb10);
+	
+	//move call
+	cb10.move(1.0);
+	cb11.move(1.0);
+
+	//Test cb10 and cb11 x and y velocities are equal to initial velocities
+	assertEquals(1.0, cb10.getXVel(), 0.0);
+	assertEquals(0.0, cb10.getYVel(), 0.0);
+	assertEquals(-1.0, cb11.getXVel(), 0.0);
+	assertEquals(0.0, cb11.getYVel(), 0.0);
+
+	//Test Case 2 - Two ColBodies colliding.
+	ColBody cb20 = new ColBody(0.0, 0.0, 1.0, 0.0, 0, 0, 0, 1.0, 3.0);
+	ColBody cb21 = new ColBody(5.0, 0.0, -1.0, 0.0, 0, 0, 0, 1.0, 3.0);
+	
+	//addForceFrom call
+	cb20.addForceFrom(cb21);
+	cb21.addForceFrom(cb20);
+	
+	//move call
+	cb20.move(1.0);
+	cb21.move(1.0);
+
+	//Test cb20 and cb21 x and y velocities are correct according to PEC
+	//velocities.
+	assertEquals(-1.0, cb20.getXVel(), 0.0);
+	assertEquals(0.0, cb20.getYVel(), 0.0);
+	assertEquals(1.0, cb21.getXVel(), 0.0);
+	assertEquals(0.0, cb21.getYVel(), 0.0);
     }
 
     @Test
     public void testMove(){
-       	ColBody gbSun = new ColBody(0, 0, 0, 0, 0, 0, 0, 1.989E30, 0.0);
-	ColBody gbEarth = 
-	    new ColBody(1.5E11, 0.0, 0.0, 3.0E4, 0, 0, 0, 5.972E24, 0.0);
-	ColBody gbVenus = 
-	    new ColBody(1E11, 0.0, 0.0, 3.5E4, 0, 0, 0, 04.87E24, 0.0);
+	//Test Case 0 - Two ColBodies not touching.
+	ColBody cb00 = new ColBody(0.0, 0.0, 0.0, 1.0, 0, 0, 0, 1.0, 1.0);
+	ColBody cb01 = new ColBody(0.0, 5.0, 0.0, -1.0, 0, 0, 0, 1.0, 1.0);
 	
-	double deltaSun = 1E-13;
-	double deltaEV = 1E10;
+	//addForceFrom call
+	cb00.addForceFrom(cb01);
+	cb01.addForceFrom(cb00);
+	
+	//move call
+	cb00.move(1.0);
+	cb01.move(1.0);
 
-	//Calculations Round 1
-	//Copy from here
-	gbSun.addForceFrom(gbVenus);
-	gbSun.addForceFrom(gbEarth);
-	
-	gbVenus.addForceFrom(gbEarth);
-	gbVenus.addForceFrom(gbSun);
-	
-	gbEarth.addForceFrom(gbVenus);
-	gbEarth.addForceFrom(gbSun);
-	
-	gbSun.move(0.1);
-	gbVenus.move(0.1);
-	gbEarth.move(0.1);
-	//To here
-	
-	assertEquals(5.021669E-10, gbSun.getXCoord(), deltaSun);
-	assertEquals(0, gbSun.getYCoord(), deltaSun);
+	//Test cb00 and cb01 x and y positions are correct according to PEC
+	//equations.
+	assertEquals(0.0, cb00.getXCoord(), 0.0);
+	assertEquals(1.0, cb00.getYCoord(), 0.0);
+	assertEquals(0.0, cb01.getXCoord(), 0.0);
+	assertEquals(4.0, cb01.getYCoord(), 0.0);
 
-	assertEquals(1E11, gbVenus.getXCoord(), deltaEV);
-	assertEquals(3.5E3, gbVenus.getYCoord(), 1);
-
-	assertEquals(1.5E11, gbEarth.getXCoord(), deltaEV);
-	assertEquals(3E3, gbEarth.getYCoord(), 1);
-
-	assertEquals(0, gbSun.getXForce(), 1);
-	assertEquals(0, gbSun.getYForce(), 1);
-	assertEquals(0, gbVenus.getXForce(), 1);
-	assertEquals(0, gbVenus.getYForce(), 1);
-	assertEquals(0, gbEarth.getXForce(), 1);
-	assertEquals(0, gbEarth.getYForce(), 1);
+	//Test Case 1 - Two ColBodies touching, moving away.
+	ColBody cb10 = new ColBody(0.0, 0.0, 1.0, 0.0, 0, 0, 0, 1.0, 5.0);
+	ColBody cb11 = new ColBody(0.0, 8.0, -1.0, 0.0, 0, 0, 0, 1.0, 4.0);
 	
-	//Calculations Round 2
-	gbSun.addForceFrom(gbVenus);
-	gbSun.addForceFrom(gbEarth);
+	//addForceFrom call
+	cb10.addForceFrom(cb11);
+	cb11.addForceFrom(cb10);
 	
-	gbVenus.addForceFrom(gbEarth);
-	gbVenus.addForceFrom(gbSun);
+	//move call
+	cb10.move(1.0);
+	cb11.move(1.0);
 	
-	gbEarth.addForceFrom(gbVenus);
-	gbEarth.addForceFrom(gbSun);
-	
-	//System.out.println("XForce: " + gbEarth.getXForce());
-	//System.out.println("XVel: " + gbEarth.getXVel());
-	//System.out.println("XCoord: " + gbEarth.getXCoord());
-	//System.out.println("YForce: " + gbEarth.getYForce());
-	//System.out.println("YVel: " + gbEarth.getYVel());
-	//System.out.println("YCoord: " + gbEarth.getYCoord());
-
-	gbSun.move(0.1);
-	gbVenus.move(0.1);
-	gbEarth.move(0.1);
-	
-	//System.out.println("XCoord: " + gbEarth.getXCoord());
-	//System.out.println("YCoord: " + gbEarth.getYCoord());
-
-	assertEquals(1.506516E-9, gbSun.getXCoord(), deltaSun);
-	assertEquals(1.491885E-17, gbSun.getYCoord(), deltaSun);
-
-	assertEquals(1E11, gbVenus.getXCoord(), deltaEV);
-	assertEquals(7E3, gbVenus.getYCoord(), 1);
-
-	assertEquals(1.5E11, gbEarth.getXCoord(), deltaEV);
-	assertEquals(6E3, gbEarth.getYCoord(), 1);
-	
-	assertEquals(0, gbSun.getXForce(), 1);
-	assertEquals(0, gbSun.getYForce(), 1);
-	assertEquals(0, gbVenus.getXForce(), 1);
-	assertEquals(0, gbVenus.getYForce(), 1);
-	assertEquals(0, gbEarth.getXForce(), 1);
-	assertEquals(0, gbEarth.getYForce(), 1);
+	//Test cb10 and cb11 x and y positions are correct according to PEC
+	//equations.
+	assertEquals(1.0, cb10.getXCoord(), 0.0);
+	assertEquals(0.0, cb10.getYCoord(), 0.0);
+	assertEquals(-1.0, cb11.getXCoord(), 0.0);
+	assertEquals(8.0, cb11.getYCoord(), 0.0);
     }
 
     @Test
