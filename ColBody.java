@@ -86,6 +86,15 @@ public class ColBody implements Body{
 	return yVel;
     }
 
+    public double getTempXVel(){
+	return tempXVel;
+    }
+
+    public double getTempYVel(){
+	return tempYVel;
+    }
+
+
     //Returns radius of this Body.
     public double getRadius(){
 	return radius;

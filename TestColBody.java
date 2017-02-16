@@ -216,6 +216,32 @@ public class TestColBody {
 	assertEquals(0.0, cb20.getYVel(), 0.0);
 	assertEquals(1.0, cb21.getXVel(), 0.0);
 	assertEquals(0.0, cb21.getYVel(), 0.0);
+	
+	//Test Case 3 - 3 Body collision.
+	ColBody cb30 = new ColBody(0.0, 0.0, 1.0, 0.0, 0, 0, 0, 1.0, 1.0);
+	ColBody cb31 = new ColBody(2.0, 0.0, -1.0, 0.0, 0, 0, 0, 2.0, 2.0);
+	ColBody cb32 = new ColBody(5.0, 0.0, -2.0, 0.0, 0, 0, 0, 3.0, 3.0);
+
+	//addForceFrom call
+	cb30.addForceFrom(cb31);
+	cb30.addForceFrom(cb32);
+	cb31.addForceFrom(cb30);
+	cb31.addForceFrom(cb32);
+	cb32.addForceFrom(cb30);
+	cb32.addForceFrom(cb31);
+	
+	//move call
+	cb30.move(1.0);
+	cb31.move(1.0);
+	cb32.move(1.0);
+	
+	//Test x and y velocities are correct according to PEC
+	assertEquals(-5.0/3.0, cb30.getXVel(), .00001);
+	assertEquals(0.0, cb30.getYVel(), 0.0);
+	assertEquals(-13.0/15.0, cb31.getXVel(), .00001);
+	assertEquals(0.0, cb31.getYVel(), 0.0);
+	assertEquals(-1.2, cb32.getXVel(), .00001);
+	assertEquals(0.0, cb32.getYVel(), 0.0);
     }
 
     @Test
@@ -257,6 +283,52 @@ public class TestColBody {
 	assertEquals(0.0, cb10.getYCoord(), 0.0);
 	assertEquals(-1.0, cb11.getXCoord(), 0.0);
 	assertEquals(8.0, cb11.getYCoord(), 0.0);
+	
+	//Test Case 2 - Two ColBodies colliding.
+	ColBody cb20 = new ColBody(0.0, 0.0, 1.0, 0.0, 0, 0, 0, 1.0, 3.0);
+	ColBody cb21 = new ColBody(5.0, 0.0, -1.0, 0.0, 0, 0, 0, 1.0, 3.0);
+	
+	//addForceFrom call
+	cb20.addForceFrom(cb21);
+	cb21.addForceFrom(cb20);
+	
+	//move call
+	cb20.move(1.0);
+	cb21.move(1.0);
+
+	//Test cb20 and cb21 x and y positions are correct according to PEC
+	//equations.
+	assertEquals(-1.0, cb20.getXCoord(), 0.0);
+	assertEquals(0.0, cb20.getYCoord(), 0.0);
+	assertEquals(6.0, cb21.getXCoord(), 0.0);
+	assertEquals(0.0, cb21.getYCoord(), 0.0);
+
+	//Test Case 3 - 3 Body collision.
+	ColBody cb30 = new ColBody(0.0, 0.0, 1.0, 0.0, 0, 0, 0, 1.0, 1.0);
+	ColBody cb31 = new ColBody(2.0, 0.0, -1.0, 0.0, 0, 0, 0, 2.0, 2.0);
+	ColBody cb32 = new ColBody(5.0, 0.0, -2.0, 0.0, 0, 0, 0, 3.0, 3.0);
+
+	//addForceFrom call
+	cb30.addForceFrom(cb31);
+	cb30.addForceFrom(cb32);
+	cb31.addForceFrom(cb30);
+	cb31.addForceFrom(cb32);
+	cb32.addForceFrom(cb30);
+	cb32.addForceFrom(cb31);
+	
+	//move call
+	cb30.move(1.0);
+	cb31.move(1.0);
+	cb32.move(1.0);
+	
+	//Test cb30, cb31, cb32 x and y positions are correct according to PEC
+	//equations.
+	assertEquals(-5.0/3.0, cb30.getXCoord(), 0.00001);
+	assertEquals(0.0, cb30.getYCoord(), 0.0);
+	assertEquals(17.0/15.0, cb31.getXCoord(), 0.00001);
+	assertEquals(0.0, cb31.getYCoord(), 0.0);
+	assertEquals(19.0/5.0, cb32.getXCoord(), 0.00001);
+	assertEquals(0.0, cb32.getYCoord(), 0.0);
     }
 
     @Test
